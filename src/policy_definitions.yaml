@@ -1,0 +1,89 @@
+# Policy definitions for SFQ evaluation
+
+# Each policy defines additive deltas to baseline friction components and
+# effectiveness values for residual risk mitigation.  Deltas are applied
+# before adding random noise and clamping.  Effectiveness values represent
+# the proportion of attacks mitigated (0 = no mitigation, 1 = fully mitigated).
+
+baseline_password_only:
+  description: >
+    The reference policy requiring only a username and password.  Provides no
+    additional mitigation against common attack scenarios.  All deltas are zero.
+  deltas:
+    latency: 0.0
+    failure_rate: 0.0
+    prompts_per_user: 0.0
+    helpdesk_per_100_users: 0.0
+  residual_effectiveness:
+    spray: 0.05
+    theft: 0.05
+    travel: 0.05
+    legacy: 0.00
+    aitm: 0.00
+
+risk_based_mfa:
+  description: >
+    Risk‑based MFA prompts users selectively based on risk signals (e.g., location,
+    device, behaviour).  Increases latency and prompts modestly but lowers
+    residual risk for some attack scenarios.
+  deltas:
+    latency: 0.5
+    failure_rate: 0.5
+    prompts_per_user: 0.4
+    helpdesk_per_100_users: 1.0
+  residual_effectiveness:
+    spray: 0.40
+    theft: 0.30
+    travel: 0.20
+    legacy: 0.10
+    aitm: 0.10
+
+device_compliance:
+  description: >
+    Requires endpoints to meet security standards (e.g., patched OS, AV).  Adds
+    friction due to compliance checks and increases helpdesk burden.  Mitigates
+    some attacks, especially those exploiting outdated or unmanaged devices.
+  deltas:
+    latency: 0.2
+    failure_rate: 0.3
+    prompts_per_user: 0.2
+    helpdesk_per_100_users: 0.8
+  residual_effectiveness:
+    spray: 0.20
+    theft: 0.15
+    travel: 0.10
+    legacy: 0.30
+    aitm: 0.15
+
+phishing_resistant_mfa:
+  description: >
+    Uses phishing‑resistant authenticators such as FIDO2 passkeys or WebAuthn.
+    Significantly reduces residual risk of credential compromise but introduces
+    slightly higher latency and prompt counts during enrolment and adaptation.
+  deltas:
+    latency: 0.8
+    failure_rate: 0.6
+    prompts_per_user: 0.6
+    helpdesk_per_100_users: 1.5
+  residual_effectiveness:
+    spray: 0.70
+    theft: 0.60
+    travel: 0.40
+    legacy: 0.50
+    aitm: 0.70
+
+combined_controls:
+  description: >
+    Combines risk‑based MFA, device compliance and phishing‑resistant authenticators.
+    Maximises security benefits at the cost of the highest operational friction.
+  deltas:
+    latency: 1.0
+    failure_rate: 0.8
+    prompts_per_user: 0.8
+    helpdesk_per_100_users: 2.0
+  residual_effectiveness:
+    spray: 0.80
+    theft: 0.70
+    travel: 0.50
+    legacy: 0.60
+    aitm: 0.80
