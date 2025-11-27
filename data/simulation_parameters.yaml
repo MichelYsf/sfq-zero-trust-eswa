@@ -1,0 +1,57 @@
+# Simulation parameters for the SFQ Monte Carlo evaluation
+
+# Number of synthetic users
+population_size: 1200
+
+# Length of the simulation horizon in weeks
+horizon_weeks: 12
+
+# Number of Monte Carlo runs per policy
+num_runs: 2000
+
+# Baseline distributions for friction components
+baseline:
+  # Sign‑in latency follows a lognormal distribution.  The log of latency is
+  # drawn from N(mu, sigma^2) and then exponentiated.
+  latency_distribution:
+    type: lognormal
+    mu: -0.2    # mean of log(latency)
+    sigma: 0.5  # standard deviation of log(latency)
+  # Baseline sign‑in failure rate (per sign‑in)
+  failure_rate: 0.02  # 2 %
+  # Baseline prompts per user per week
+  prompts_per_user: 0.30
+  # Baseline helpdesk tickets per 100 users per week
+  helpdesk_per_100_users: 12.8
+
+# Clamping ranges used for normalization.  Values are clipped to these ranges
+# before computing the normalized components.
+clamping:
+  latency: [0.2, 10.0]                 # seconds
+  failure_rate: [0.0, 0.20]            # fraction (0–20 %)
+  prompts_per_user: [0.0, 3.0]         # prompts per user per week
+  helpdesk_per_100_users: [0.0, 20.0]  # tickets per 100 users per week
+
+# Noise parameters (standard deviations) applied to policy deltas at each run
+noise:
+  latency: 0.05
+  failure_rate: 0.10
+  prompts_per_user: 0.05
+  helpdesk_per_100_users: 0.10
+
+# Scenario prevalence weights used when computing residual risk R.  Weights
+# should sum to 1.0.
+scenario_weights:
+  spray: 0.30
+  theft: 0.25
+  travel: 0.15
+  legacy: 0.15
+  aitm: 0.15
+
+# Default component weights used in the SFQ calculation.  These should sum to 1.
+component_weights:
+  latency: 0.2
+  failure: 0.2
+  prompts: 0.2
+  helpdesk: 0.2
+  residual: 0.2
