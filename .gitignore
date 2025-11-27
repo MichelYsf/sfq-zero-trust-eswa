@@ -1,0 +1,22 @@
+# Byte‑compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*.so
+*.dylib
+
+# Jupyter notebook checkpoints
+.ipynb_checkpoints/
+
+# Virtual environment directories
+.env/
+.venv/
+venv/
+
+# Editor and OS generated files
+.DS_Store
+Thumbs.db
+*.swp
+
+# Simulation outputs
+data/simulation_results.csv
+*.log

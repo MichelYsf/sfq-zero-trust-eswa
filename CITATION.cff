@@ -1,0 +1,26 @@
+cff-version: 1.2.0
+message: >
+  If you use the Security Friction Quotient (SFQ) code or data in your research,
+  please cite this work as described below.
+title: Security Friction Quotient for Zero Trust Identity Policy with Empirical Validation
+authors:
+  - given-names: Michel
+    family-names: Youssef
+    affiliation: Independent Researcher, Lebanon
+    orcid: https://orcid.org/0000-0000-0000-0000
+version: "1.0.0"
+date-released: 2025-11-26
+type: software
+repository-code: https://github.com/USER/sfq-zero-trust-eswa
+url: https://github.com/USER/sfq-zero-trust-eswa
+license: MIT
+keywords:
+  - Zero Trust
+  - security metrics
+  - multi-factor authentication
+  - simulation
+notes: >
+  This repository accompanies the paper “Security Friction Quotient for Zero Trust
+  Identity Policy with Empirical Validation” submitted to Expert Systems With
+  Applications.  The simulation code is provided for reproducibility and further
+  research.
